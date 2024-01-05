@@ -138,13 +138,21 @@ function spacePosition() {
   neptuneContainer.style.left =
     width / 2 - neptuneContainer.offsetWidth / 2 + Rneptune + "px";
 }
-var start = document.getElementById("start");
-start.onclick = function () {
-  timerId = setInterval(move, 20);
+var startButton = document.getElementById("start");
+var stopButton = document.getElementById("stop");
+var timerId;
+
+startButton.onclick = function () {
+  // Check if timer is already running to prevent multiple intervals
+  if (!timerId) {
+    move(); // Trigger move function immediately
+    timerId = setInterval(move, 20);
+  }
 };
-var stop = document.getElementById("stop");
-stop.onclick = function () {
+
+stopButton.onclick = function () {
   clearInterval(timerId);
+  timerId = null; // Reset timerId to allow starting again
 };
 function move() {
   moveEarth();
